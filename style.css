@@ -43,10 +43,16 @@ html, body {
 
 /* ----- Hero ----- */
 .hero {
-	padding: 2%;
-	margin: 2% 0;
+	/* for some reason there is a horizontal scroll bar without this */
+	padding: 0 2%; 
+	
 	/* height: 100vh; */
+	min-height: 100vh;
 }
+
+/* .hero-header {
+
+} */
 
 /* .hero-main {
 	
@@ -67,14 +73,23 @@ html, body {
 }
 
 .hero-description {
+	text-align: center;
 	font-size: 18px;
 	margin: auto;
-	padding: 0 10%;
+	padding: 0 9%;
+}
+
+.hero-footer {
+	text-align: center;
+	font-size: 18px;
+	margin: auto;
+	padding: 2em 10%;
 }
 
 /* ----- About ----- */
 #about-me {
 	padding: 2%;
+	padding-bottom: 0;
 	/* background-color: gray; */
 }
 
@@ -135,6 +150,12 @@ html, body {
 	height: 3em;
 }
 
+/* ----- Footer ----- */
+.footer {
+	padding: 2%;
+	background-color: gray;
+}
+
 /* ----- Starry Background ----- */
 .stars {
   position: fixed;
@@ -144,4 +165,29 @@ html, body {
   height: 100vh;
   z-index: -1;
 	background-image: url("/starry_background.png");
+}
+
+/* ----- Scroll Down Icon ----- */
+.scroll-down {
+  animation: bounce 10s infinite;
+}
+
+.arrow {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin: 0 auto;
+}
+
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(10px);
+	}
 }
