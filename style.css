@@ -1,80 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-  --main: #221F41;
+	--main: #221F41;
+	--text: white;
+	/* --background: #090826; */
+	--background: #1B1B1D;
+	/* --section-background: #1F1D3B; */
+	--section-background: #1D1C20;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: black;
-  color: white;
+	margin: 0;
+	padding: 0;
+	/* box-sizing: border-box; */
 }
 
 html, body {
-  font-family: "Montserrat", sans-serif;
+	font-family: "Montserrat", sans-serif;
+	background-color: var(--background);
+	color: var(--text);
 }
 
 /* ----- Experience ----- */
 .experience {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
 }
 
 .experience-canvas {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 /* ----- Page ----- */
-
-.page {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.page-wrapper {
-  position: relative;
-}
+/* .page-container {
+	
+} */
 
 /* ----- Hero ----- */
 .hero {
-  width: 100vw;
-  height: 100vh;
+	margin: 2% 0;
 }
 
-.hero-wrapper {
-  position: relative;
-  height: 100%;
-  width: 95%;
-  margin: 0 auto;
+/* .hero-main {
+	
+} */
+
+.hero-main-primary {
+	font-size: 36px;
 }
 
-.hero-main {
-  position: absolute;
-  top: 3%;
-  left: 0;
+.hero-main-secondary {
+	font-size: 24px;
 }
 
-.hero-second {
-  position: absolute;
-  top: 20%;
-  right: 0;
+.hero-secondary {
+	font-size: 24px;
+	text-transform: uppercase;
+	text-align: right;
 }
 
-.hero-main-title {
-  font-size: 48px;
+.hero-description {
+	margin: auto;
+	padding: 0 10%;
 }
 
-.hero-main-description {
-  font-size: 18px;
+/* ----- Sections -----*/
+.section {
+	width: 50%;
+	border-radius: 50; /* todo */
+	background-color: var(--section-background);
 }
 
-.hero-second-text {
-  font-size: 24px;
-  text-transform: uppercase;
+.left {
+	/* float: left; */
+	margin-right: auto;
+}
+
+.right {
+	/* float: right; */
+	margin-left: auto;
+}
+
+.section-divider {
+	position: relative;
+	width: 100%;
+	height: 50px;
 }
