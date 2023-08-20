@@ -7,6 +7,8 @@
 	--background: #1B1B1D;
 	/* --section-background: #1F1D3B; */
 	--section-background: #1D1C20;
+
+	--section-border-radius: 1.5em;
 }
 
 * {
@@ -17,7 +19,7 @@
 
 html, body {
 	font-family: "Montserrat", sans-serif;
-	background-color: var(--background);
+	/* background-color: var(--background); */
 	color: var(--text);
 }
 
@@ -34,13 +36,14 @@ html, body {
 }
 
 /* ----- Page ----- */
-/* .page-container {
-	
-} */
+.page-container {
+	z-index: 1;	
+}
 
 /* ----- Hero ----- */
 .hero {
 	margin: 2% 0;
+	/* height: 100vh; */
 }
 
 /* .hero-main {
@@ -62,29 +65,81 @@ html, body {
 }
 
 .hero-description {
+	font-size: 18px;
 	margin: auto;
 	padding: 0 10%;
 }
 
+/* ----- About ----- */
+#about-me {
+	padding: 2%;
+	/* background-color: gray; */
+}
+
+.about-me-panel {
+	background-color: var(--section-background);
+	border-radius: 1em;
+	padding: 1em;
+	/* margin: 1em; */
+}
+
+.panel-title {
+	font-size: 24px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.panel-text {
+	font-size: 18px;
+}
+
 /* ----- Sections -----*/
 .section {
-	width: 50%;
-	border-radius: 50; /* todo */
+	width: 49%;
 	background-color: var(--section-background);
+	/* background-color: aqua; */
+	padding: var(--section-border-radius);
+}
+
+.section-title {
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+.section-text {
+	font-size: 18px;
 }
 
 .left {
-	/* float: left; */
 	margin-right: auto;
 }
 
 .right {
-	/* float: right; */
 	margin-left: auto;
+}
+
+.section.left {
+	border-top-right-radius: var(--section-border-radius);
+	border-bottom-right-radius: var(--section-border-radius);
+}
+
+.section.right {
+	border-top-left-radius: var(--section-border-radius);
+	border-bottom-left-radius: var(--section-border-radius);
 }
 
 .section-divider {
 	position: relative;
-	width: 100%;
-	height: 50px;
+	height: 3em;
+}
+
+/* ----- Starry Background ----- */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+	background-image: url("/starry_background.png");
 }
