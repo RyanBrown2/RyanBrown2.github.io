@@ -21,6 +21,8 @@ html, body {
 	font-family: "Montserrat", sans-serif;
 	/* background-color: var(--background); */
 	color: var(--text);
+	overflow-x: hidden;
+	background-image: url("/starry_background.png");
 }
 
 /* ----- Experience ----- */
@@ -44,15 +46,15 @@ html, body {
 /* ----- Hero ----- */
 .hero {
 	/* for some reason there is a horizontal scroll bar without this */
-	padding: 0 2%; 
+	/* padding: 0 2%;  */
 	
 	/* height: 100vh; */
 	min-height: 100vh;
 }
 
-/* .hero-header {
-
-} */
+.hero-header {
+	padding: 0 2%; 
+}
 
 /* .hero-main {
 	
@@ -154,17 +156,6 @@ html, body {
 .footer {
 	padding: 2%;
 	background-color: gray;
-}
-
-/* ----- Starry Background ----- */
-.stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 110%;
-  height: 120%;
-  z-index: -1;
-	background-image: url("/starry_background.png");
 }
 
 /* ----- Scroll Down Icon ----- */
