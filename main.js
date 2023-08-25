@@ -2,6 +2,11 @@ import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 
+import Experience from './Experience/Experience';
+
+const experience = new Experience(document.querySelector('.experience-canvas'));
+
+
 // ----- Background -----
 function configureBackground() {
 	const footer = document.querySelector('#footer');
@@ -45,7 +50,7 @@ function createAtmosphere(parent) {
 	atmosphereContainer.classList.add('atmosphere-container');
 	parent.appendChild(atmosphereContainer);
 
-	console.log(`Atmospher Container Height: ${atmosphereContainer.offsetHeight}px`);
+	// console.log(`Atmospher Container Height: ${atmosphereContainer.offsetHeight}px`);
 
 	// wait until footer is finished before implementing
 	// createAtmosphereLayerElement(atmosphereContainer, 0.5);
