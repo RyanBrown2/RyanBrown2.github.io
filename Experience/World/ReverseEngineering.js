@@ -26,8 +26,8 @@ export default class ReverseEngineering {
 		this.actualModel.children.forEach(child => {
 			this._recurseChild(child);
 		});
-		this.actualModel.position.set(10, 0, 0);
-		this.scene.add(this.actualModel);
+		// this.actualModel.position.set(3, 0, 0);
+		// this.scene.add(this.actualModel);
 		// this.actualModel.scale.set(0.1, 0.1, 0.1);
 	}
 

@@ -23,21 +23,21 @@ export default class Controls {
 	}
 
 	setPath() {
-    this.timeline = new GSAP.timeline({
-      scrollTrigger: {
-        trigger: "#re-sec",
-        scrub: 0.5,
-        // markers: true,
-        start: "top bottom",
-        end: "bottom bottom",
-      },
-    });
+    // this.timeline = new GSAP.timeline({
+    //   scrollTrigger: {
+    //     trigger: "#re-sec",
+    //     scrub: 0.5,
+    //     // markers: true,
+    //     start: "top bottom",
+    //     end: "bottom bottom",
+    //   },
+    // });
 
-    this.timeline.fromTo(this.reverseEngineering.position, {
-      x: 8,
-    }, {
-      x: 2,
-    });
+    // this.timeline.fromTo(this.reverseEngineering.position, {
+    //   x: 8,
+    // }, {
+    //   x: 2,
+    // });
 
     // const re_out = new GSAP.timeline({
     //   scrollTrigger: {
