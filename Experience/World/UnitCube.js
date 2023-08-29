@@ -11,11 +11,10 @@ export default class UnitCube {
 		this.actualModel = this.model.scene;
 		this.time = this.experience.time;
 		  
-    this.lerp = {
-      current: 0,
-      target: 0,
-      ease: 0.1,
-    };
+		this.defaults = {
+			scale: new THREE.Vector3(1,1,1),
+			padding: new THREE.Vector3(0, 0.5, 0),
+		};
 	
 		this.setModel();
 	}

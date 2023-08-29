@@ -50,12 +50,22 @@ export default class Controls {
   onWheel() {
     window.addEventListener("wheel", (e) => {
       if (e.deltaY > 0) {
-        this.lerp.target += 0.01;
+        this.lerp.target += 0.1;
       } else {
-        this.lerp.target -= 0.01;
+        this.lerp.target -= 0.1;
       }
     });
 
+  }
+
+
+  /**
+   * Set the bottom position of camera path
+   * @param {number} pos 
+   */
+  setPageBottomPos(pos) {
+    var bottomVal = pos - this.camera.orthographicCamera.bottom;
+    this.curve.points[1].y = bottomVal;
   }
 
 	resize() {}

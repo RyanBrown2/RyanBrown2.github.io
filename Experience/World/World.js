@@ -50,10 +50,11 @@ export default class World {
 
 		startHeight += this.camera.getScenePosition(heroXPos, heroYPos*2).y;
 
-
 		// Reverse Engineering Section
 		this.applyScale(this.reverseEngineering.actualModel, 0.25);
-		const reModelHeight = this.getObjectSize(this.reverseEngineering.actualModel).y;
+		var reModelHeight = this.getObjectSize(this.reverseEngineering.actualModel).y;
+		reModelHeight += reModelHeight * this.reverseEngineering.defaults.padding.y * 2;
+
 		
 		this.reverseEngineering.actualModel.position.setY(startHeight - reModelHeight / 2);
 		this.reverseEngineering.actualModel.position.setX(this.camera.getCameraSize().x/4);
@@ -61,15 +62,62 @@ export default class World {
 		const reverseEngineeringElement = document.getElementById("re-sec");
 		const reXPos = reverseEngineeringElement.clientWidth / 2;
 		const reYPos = this.camera.getPixelPosition(this.reverseEngineering.actualModel.position).y;
-		
-		// const position = new THREE.Vector3(0, 0, 0);
-		// position.copy(this.camera.getScenePosition(reXPos, reYPos));
 
 		const reverseEngineeringTextObject = new CSS2DObject(reverseEngineeringElement);
 		reverseEngineeringTextObject.position.copy(this.camera.getScenePosition(reXPos, reYPos));
 		this.scene.add(reverseEngineeringTextObject);
 		this.reverseEngineering.calcPixelCenter();
 		startHeight -= reModelHeight;
+
+		// Web Dev Section
+		// todo: create the graphic for this section
+		const webDevElement = document.getElementById("web-dev-sec");
+		const webDevXPos = this.sizes.width - webDevElement.clientWidth / 2;
+		const webDevYPos = (webDevElement.clientHeight / 2);
+
+		const webDevObject = new CSS2DObject(webDevElement);
+		const webDevPos = this.camera.getScenePosition(webDevXPos, webDevYPos);
+		webDevPos.setY(startHeight - webDevPos.y);
+		webDevObject.position.copy(webDevPos);
+		this.scene.add(webDevObject);
+		
+		// offsetHeight is negative so we add it
+		startHeight += this.camera.getScenePosition(0, webDevObject.element.offsetHeight).y;
+
+		// AI Section
+		const aiElement = document.getElementById("ai-sec");
+		const aiXPos = aiElement.clientWidth / 2;
+		const aiYPos = (aiElement.clientHeight / 2);
+		// console.log(aiXPos, aiYPos);
+
+		const aiObject = new CSS2DObject(aiElement);
+		const aiPos = this.camera.getScenePosition(aiXPos, aiYPos);
+		aiPos.setY(startHeight - aiPos.y);
+		// console.log(aiPos);
+		aiObject.position.copy(aiPos);
+		// console.log(aiPos);
+		this.scene.add(aiObject);
+
+		// offsetHeight is negative so we add it
+		startHeight += this.camera.getScenePosition(0, aiObject.element.offsetHeight).y;
+
+		// Robotics Section
+		const roboticsElement = document.getElementById("robotics-sec");
+		const roboticsXPos = this.sizes.width - roboticsElement.clientWidth / 2;
+		const roboticsYPos = (roboticsElement.clientHeight / 2);
+
+		const roboticsObject = new CSS2DObject(roboticsElement);
+		const roboticsPos = this.camera.getScenePosition(roboticsXPos, roboticsYPos);
+		roboticsPos.setY(startHeight - roboticsPos.y);
+		roboticsObject.position.copy(roboticsPos);
+		this.scene.add(roboticsObject);
+
+		// offsetHeight is negative so we add it
+		startHeight += this.camera.getScenePosition(0, roboticsObject.element.offsetHeight).y;
+
+		this.controls.setPageBottomPos(startHeight);
+		
+		// this.unitCube.actualModel.position.setY(startHeight - this.unitCube.defaults.scale.y);
 	}
 
 	/**

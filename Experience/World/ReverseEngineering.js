@@ -18,6 +18,11 @@ export default class ReverseEngineering {
       target: 0,
       ease: 0.1,
     };
+
+		this.defaults = {
+			scale: new THREE.Vector3(0.279104, 0.279104, 0.279104),
+			padding: new THREE.Vector3(0.1, 0.5, 0.1),
+		};
 		
 		this.setModel();
 		this.setAnimation();
@@ -32,7 +37,7 @@ export default class ReverseEngineering {
 		});
 		// this.actualModel.position.set(3, 0, 0);
 		this.scene.add(this.actualModel);
-		this.actualModel.scale.set(0.279104, 0.279104, 0.279104);
+		this.actualModel.scale.copy(this.defaults.scale);
 	}
 
 	_recurseChild(child) {
@@ -79,19 +84,12 @@ export default class ReverseEngineering {
 	 * Find the pixel coordinate of the center of the object
 	 */
 	calcPixelCenter() {
-		this.center = new THREE.Vector3(0.5, 0.5, 0.5);
+		this.center = new THREE.Vector3(0.279104, 0.279104, 0.279104);
 		this.center.multiply(this.actualModel.scale);
 		
 		this.center.add(this.actualModel.position);
 		this.pixelCenter = this.camera.getPixelPosition(this.center);
 		// console.log(this.pixelCenter);
-		const test = document.createElement("div");
-		test.id = "pos-test";
-		test.style.position = "absolute";
-		test.style.top = this.pixelCenter.y + "px";
-		test.style.left = this.pixelCenter.x + "px";
-
-		document.body.appendChild(test);
 
 	}
 
@@ -101,7 +99,7 @@ export default class ReverseEngineering {
 	}
 
 	update() {
-		// this.calcPixelCenter();
+		this.calcPixelCenter();
     this.lerp.current = GSAP.utils.interpolate(this.lerp.current, this.lerp.target, this.lerp.ease);
 
 		// this.actualModel.rotation.y = this.lerp.current;
