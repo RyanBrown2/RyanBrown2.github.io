@@ -5,6 +5,7 @@
 	--text: white;
 	/* --background: #090826; */
 	--background: #1B1B1D;
+
 	/* --section-background: #1F1D3B; */
 	--section-background: #1D1C20;
 
@@ -22,12 +23,13 @@ html, body {
 	/* background-color: var(--background); */
 	color: var(--text);
 	overflow-x: hidden;
+	/* overflow-y: hidden; */
 	/* background-image: url("/starry_background.png"); */
 }
 
 /* ----- Experience ----- */
 .experience {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
 	z-index: -1;
@@ -42,6 +44,7 @@ html, body {
 .page-container {
 	z-index: 1;	
 	padding: 0;
+	pointer-events: none;
 }
 
 /* ----- Hero ----- */
@@ -50,7 +53,7 @@ html, body {
 	/* padding: 0 2%;  */
 	
 	/* height: 100vh; */
-	min-height: 100vh;
+	/* min-height: 100vh; */
 }
 
 .hero-header {
@@ -115,7 +118,7 @@ html, body {
 
 /* ----- Sections -----*/
 .section {
-	width: 49%;
+	/* width: 49%; */
 	background-color: var(--section-background);
 	/* background-color: aqua; */
 	padding: var(--section-border-radius);
@@ -192,29 +195,4 @@ html, body {
 	transform: translate(-50%, -50%);
 	overflow: hidden;
 	opacity: 0.5;
-}
-
-/* ----- Scroll Down Icon ----- */
-.scroll-down {
-	animation: bounce 10s infinite;
-}
-
-.arrow {
-	display: block;
-	width: 20px;
-	height: 20px;
-	border: solid white;
-	border-width: 0 2px 2px 0;
-	transform: rotate(45deg);
-	margin: 0 auto;
-}
-
-@keyframes bounce {
-	0%, 100% {
-		transform: translateY(0);
-	}
-
-	50% {
-		transform: translateY(10px);
-	}
 }

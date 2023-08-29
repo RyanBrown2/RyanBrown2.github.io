@@ -33,11 +33,9 @@ export default class Camera {
       -50,
       50
     );
-    // this.orthographicCamera = new THREE.PerspectiveCamera(35, this.sizes.aspectRatio, 0.1, 100);
 
-    this.orthographicCamera.position.y = 3.5;
     this.orthographicCamera.position.z = 5;
-    this.orthographicCamera.rotation.x = -Math.PI / 6;
+    this.orthographicCamera.position.y = this.orthographicCamera.bottom;
 
     this.scene.add(this.orthographicCamera);
 
@@ -51,7 +49,58 @@ export default class Camera {
 
     // const axesHelper = new THREE.AxesHelper(10);
     // this.scene.add(axesHelper);
+  }
 
+  /**
+   * Get the width and height of the orthographic camera
+   * @returns {THREE.Vector2} width and height of the camera
+   */
+  getCameraSize() {
+    return new THREE.Vector2(
+      Math.abs(this.orthographicCamera.right - this.orthographicCamera.left),
+      Math.abs(this.orthographicCamera.top - this.orthographicCamera.bottom)
+    );
+  }
+
+  /**
+   * Project a pixel coordinate to a 3D coordinate based on the orthographic camera
+   * @param {*} x pixel coordinate
+   * @param {*} y pixel coordinate
+   * @param {*} depth depth in the scene
+   * @returns {THREE.Vector3} 3D coordinate
+   */
+  getScenePosition(x, y, depth=0) {
+    // normalize device coordinates
+    var ndcX = (x / this.sizes.width) * 2 - 1;
+    var ndcY = -(y / this.sizes.height) * 2 + 1;
+
+    // convert to world space
+    var vec = new THREE.Vector3(ndcX, ndcY, depth);
+    vec.unproject(this.orthographicCamera);
+    return vec;
+
+    // // calc scene position
+    // const dir = vec.sub(this.orthographicCamera.position).normalize();
+    // const distance = -this.orthographicCamera.position.z / dir.z;
+    // const scenePos = this.orthographicCamera.position.clone().add(dir.multiplyScalar(distance));
+    // return scenePos;
+  }
+
+  /**
+   * Project a 3D coordinate to a pixel coordinate based on the orthographic camera
+   * @param {THREE.Vector3} pos 
+   * @returns {THREE.Vector2} pixel coordinate
+   */
+  getPixelPosition(pos) {
+    var widthHalf = this.sizes.width / 2;
+    var heightHalf = this.sizes.height / 2;
+    var vec = pos.clone();
+    vec.project(this.orthographicCamera);
+    var returnVec = new THREE.Vector2(
+      (vec.x * widthHalf) + widthHalf,
+      -(vec.y * heightHalf) + heightHalf
+    );
+    return returnVec;
   }
 
   setOrbitControls() {
@@ -74,7 +123,7 @@ export default class Camera {
     this.controls.update();
     // this.helper.matrixWorldNeedsUpdate = true;
     // this.helper.update();
-    // this.helper.position.copy(this.perspectiveCamera.position);
-    // this.helper.rotation.copy(this.perspectiveCamera.rotation);
+    // this.helper.position.copy(this.orthographicCamera.position);
+    // this.helper.rotation.copy(this.orthographicCamera.rotation);
   }
 }

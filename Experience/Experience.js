@@ -7,6 +7,7 @@ import Resources from './Utils/Resources';
 
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
+import PositionHandler from './PositionHandler.js';
 
 import World from './World/World.js';
 
@@ -24,6 +25,7 @@ export default class Experience {
     this.time = new Time();
     this.camera = new Camera();
     this.renderer = new Renderer();
+    this.positionHandler = new PositionHandler();
     this.resources = new Resources(assets);
     this.world = new World();
 

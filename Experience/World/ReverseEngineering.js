@@ -27,8 +27,8 @@ export default class ReverseEngineering {
 			this._recurseChild(child);
 		});
 		// this.actualModel.position.set(3, 0, 0);
-		// this.scene.add(this.actualModel);
-		// this.actualModel.scale.set(0.1, 0.1, 0.1);
+		this.scene.add(this.actualModel);
+		this.actualModel.scale.set(0.279104, 0.279104, 0.279104);
 	}
 
 	_recurseChild(child) {

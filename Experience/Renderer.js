@@ -16,7 +16,7 @@ export default class Renderer {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
-      alpha: true,
+      // alpha: true,
     });
 
     // this.renderer.physicallyCorrectLights = true;
@@ -28,7 +28,6 @@ export default class Renderer {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(this.sizes.pixelRatio);
-    // this.renderer.
 
   }
 

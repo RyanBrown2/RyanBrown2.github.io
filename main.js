@@ -6,7 +6,6 @@ import Experience from './Experience/Experience';
 
 const experience = new Experience(document.querySelector('.experience-canvas'));
 
-
 // ----- Background -----
 function configureBackground() {
 	const footer = document.querySelector('#footer');
@@ -33,9 +32,9 @@ function configureBackground() {
 	// backgroundContainer.appendChild(atmosphere);
 }
 
-configureBackground();
+// configureBackground();
 window.addEventListener('resize', () => {
-	configureBackground();
+	// configureBackground();
 });
 
 /**
