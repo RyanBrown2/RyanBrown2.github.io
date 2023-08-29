@@ -68,6 +68,7 @@ export default class World {
 		const reverseEngineeringTextObject = new CSS2DObject(reverseEngineeringElement);
 		reverseEngineeringTextObject.position.copy(this.camera.getScenePosition(reXPos, reYPos));
 		this.scene.add(reverseEngineeringTextObject);
+		this.reverseEngineering.calcPixelCenter();
 		startHeight -= reModelHeight;
 	}
 
@@ -98,6 +99,9 @@ export default class World {
 	}
 
 	resize() {
+		if (this.reverseEngineering) {
+			this.reverseEngineering.resize();
+		}
 		if (this.cssRenderer) {
 			this.cssRenderer.setSize(this.sizes.width, this.sizes.height);
 			this.calcPositions();
