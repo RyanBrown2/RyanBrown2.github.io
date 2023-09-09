@@ -1,0 +1,57 @@
+/* ----- Sections -----*/
+.section {
+	background-color: var(--section-background);
+	padding: var(--section-border-radius);
+}
+
+.section-title {
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+.section-text {
+	font-size: 18px;
+}
+
+.left {
+	margin-right: auto;
+}
+
+.right {
+	margin-left: auto;
+}
+
+@media only screen and (max-width: 992px) {
+	#sections {
+		padding: 0 2%;
+	}
+	
+	.section {
+		margin-bottom: 2%;
+	}
+
+	.section.left {
+		border-radius: var(--section-border-radius);
+	}
+
+	.section.right {
+		border-radius: var(--section-border-radius);
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.section.left {
+		border-top-right-radius: var(--section-border-radius);
+		border-bottom-right-radius: var(--section-border-radius);
+	}
+
+	.section.right {
+		border-top-left-radius: var(--section-border-radius);
+		border-bottom-left-radius: var(--section-border-radius);
+	}
+}
+
+.section-divider {
+	position: relative;
+	height: 3em;
+}
