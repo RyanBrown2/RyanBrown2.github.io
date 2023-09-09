@@ -7,15 +7,28 @@ export default class Hero extends Component {
 	render() {
 		return (
 			<div id="hero">
-				<Row className="hero-header">
-					<Col xs={6}>
-						<h1 className="hero-main-primary">Ryan Brown</h1>
-						<p className="hero-main-secondary">Experienced Programmer</p>
-					</Col>
-					<Col xs={6} className="hero-secondary my-auto">
-						Porfolio Building In-Progress
-					</Col>
-				</Row>
+
+				{/* Main Title Bar */}
+				<div className="d-none d-sm-block">
+					<Row className="hero-header">
+						<Col sm={6}>
+							<h1 className="hero-main-primary">Ryan Brown</h1>
+							<p className="hero-main-secondary">Experienced Programmer</p>
+						</Col>
+						<Col sm={6} className="hero-secondary my-auto">
+							Porfolio Building In-Progress
+						</Col>
+					</Row>
+				</div>
+
+				{/* Mobile Title Bar */}
+				<div className="hero-header d-block d-sm-none">
+					<Row className="hero-main-primary">Ryan Brown</Row>
+					<Row className="hero-main-secondary">Experienced Programmer</Row>
+					<Row className="hero-secondary">Porfolio Building In-Progress</Row>
+				</div>
+				
+
 				<Row className="hero-description">
 				Greetings! I'm Ryan, a passionate and dedicated programmer with an exciting journey spanning over 8 years in the realm of code. My insatiable curiosity and love for problem-solving have led me to explore a diverse range of programming languages and projects that have shaped me into the programmer I am today.	
 				</Row>
