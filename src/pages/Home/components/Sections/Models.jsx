@@ -1,23 +1,27 @@
 import { useState, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { useLoader } from '@react-three/fiber'
 
 export function ReverseEngineeringModel(props) {
   const ref = useRef()
   const [hovered, spread] = useHover()
-  const { nodes, materials } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/soda-bottle/model.gltf')
-  // const {nodes, materials} = useGLTF(Resources.reverseEngineering.scene)
-  useFrame((state, delta) => (ref.current.rotation.y += delta))
+
+
+  const { scene } = useGLTF('/models/re.glb');
+  // const resources = new Resources();
+
+  // const model = resources.loadAsset('/models/re.glb');
+
   return (
-    <group ref={ref} {...props} {...spread} dispose={null}>
-      <mesh geometry={nodes.Mesh_sodaBottle.geometry}>
-        <meshStandardMaterial color={hovered ? 'red' : 'green'} roughness={0.33} metalness={0.8} envMapIntensity={2} />
-      </mesh>
-      <mesh geometry={nodes.Mesh_sodaBottle_1.geometry} material={materials.red} material-envMapIntensity={0} />
-      {/* <primitive object={resources} /> */}
-    
-    </group>
-  )
+    <primitive object={scene} />
+  );
+
+  // if (resources.isLoaded()) {
+  //   return (
+  //     <primitive object={resources.items.reverseEngineering.scene} />
+  //   )
+  // }
 }
 
 export function Soda(props) {

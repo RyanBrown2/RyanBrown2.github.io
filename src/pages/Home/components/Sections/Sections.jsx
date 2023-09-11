@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense, useRef } from "react";
 import { Canvas, useThree } from '@react-three/fiber'
 
 import {
@@ -10,68 +10,107 @@ import {
   PivotControls,
   Environment,
   Center,
-  useTexture
+  useTexture,
+  OrthographicCamera
 } from '@react-three/drei'
 
-import ReverseEngineering from "./components/ReverseEngineering";
-import WebDevelopment from "./components/WebDevelopment";
-import AI from "./components/AI";
-import Robotics from "./components/Robotics";
 
 import "./style.css";
 
-import { ReverseEngineeringModel, Soda } from './graphic/Models';
+import { ReverseEngineeringModel } from "./Models";
+import { Col, Row } from "react-bootstrap";
 
-import ExperienceComponent from "../Experience/ExperienceComponent";
+const Sections = () => {
+  // constructor(props) {
+  //   super(props);
+  //   this.ref = React.createRef();
+  const ref = useRef();
+  const reverseEngineeringRef = useRef();
+  const webDevRef = useRef();
+  const aiRef = useRef();
+  const roboticsRef = useRef();
 
-export default class Sections extends Component {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-    // this.testView = React.createRef();
+  //   this.reverseEngineeringRef = React.createRef();
+  //   // this.testView = React.createRef();
 
-    this.experienceRef = React.createRef();
 
-    this.reverseEngineeringRef = React.createRef();
-
-    // const [ref, view1, view2, view3, view4, view5, view6] = useRefs()
-  }
+  //   // const [ref, view1, view2, view3, view4, view5, view6] = useRefs()
+  // }
   
-  render() {
+  // render() {
 
-    const Common = ({ color }) => (
+    const Common = () => (
       <>
-        {color && <color attach="background" args={[color]} />}
-        <ambientLight intensity={0.5} />
-        <pointLight position={[20, 30, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} color="blue" />
-        <Environment preset="dawn" />
-        <PerspectiveCamera makeDefault fov={40} position={[0, 0, 6]} />
+        <ambientLight intensity={10} />
+        <OrthographicCamera
+          makeDefault
+          zoom={50}
+          top={200}
+          bottom={-200}
+          left={200}
+          right={-200}
+          near={1}
+          far={2000}
+          position={[0, 0, 10]} 
+          />
       </>
     )
 
-    console.log(this.experienceRef.current);
-    
     return (
-      <div ref={this.ref} id="sections">
-        <div ref={this.experienceRef} className="view translateX"/>
-        <ReverseEngineering />
+      <div ref={ref} id="sections">
+
+      
+      <Row>
+        <Col lg={6} className='section left'>
+          <div className="section-title">Reverse Engineering</div>
+          <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+        </Col>
+        <Col lg={6} ref={reverseEngineeringRef}/>
+      </Row>
+
+      <Row>
+        <Col lg={6} ref={webDevRef} />
+        <Col lg={6} className='section right'>
+          <div className="section-title">Web Development</div>
+          <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+        </Col>
+      </Row>
+      
+      <Row>
+        <Col lg={6} className='section left'>
+          <div className="section-title">Artificial Intelligence</div>
+          <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+        </Col>
+        <Col lg={6} ref={aiRef} />
+      </Row>
+
+      <Row>
+        <Col lg={6} ref={roboticsRef} />
+        <Col lg={6} className='section right'>
+          <div className="section-title">Robotics</div>
+          <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+        </Col>
+      </Row>
+
+        {/* <div ref={reverseEngineeringRef} className=""/> */}
+        {/* <ReverseEngineering />
         <WebDevelopment />
         <AI />
-        <Robotics />
-        <ExperienceComponent ref={this.experienceRef}/>
-        {/* <Canvas eventSource={this.ref} className="canvas">
-          <View track={this.testView}>
-            <Common color="lightpink" />
-            <PivotControls lineWidth={3} depthTest={false} displayValues={false} scale={2}>
-              <ReverseEngineeringModel scale={4} position={[0, -1.6, 5]} />
-            </PivotControls>
-            <OrbitControls makeDefault />
+        <Robotics /> */}
+        {/* <ExperienceComponent ref={this.ref}/> */}
+        <Canvas eventSource={ref} className="canvas">
+          <Suspense fallback={null}>
+          <View track={reverseEngineeringRef}>
+            <Common/>
+            <ReverseEngineeringModel scale={4} position={[0, 0, 0]} />
+            {/* <OrbitControls makeDefault /> */}
           </View>
           <Preload all />
-        </Canvas> */}
+          </Suspense>
+        </Canvas>
         
       </div>
     );
-  }
 }
+
+export default Sections;

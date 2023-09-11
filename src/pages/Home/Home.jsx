@@ -5,9 +5,9 @@ import Sections from "./components/Sections/Sections";
 import Footer from "../../components/Footer/Footer";
 import Background from "../../components/Background/Background";
 
-import Experience from "./components/Experience/Experience";
 
 export default class HomePage extends Component {
+  
   render() {
     return (
       <>
