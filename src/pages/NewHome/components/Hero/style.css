@@ -1,0 +1,68 @@
+.hero {
+	
+}
+
+.hero-header {
+	padding: 2%; 
+}
+
+/* .hero-main {
+	
+} */
+
+.hero-main-primary {
+	font-size: 36px;
+}
+
+.hero-main-secondary {
+	font-size: 24px;
+}
+
+.hero-secondary {
+	font-size: 24px;
+	text-transform: uppercase;
+	text-align: right;
+}
+
+.hero-description {
+	text-align: center;
+	font-size: 18px;
+	margin: auto;
+	padding: 0 9%;
+}
+
+.hero-footer {
+	text-align: center;
+	font-size: 18px;
+	margin: auto;
+	padding: 2em 10%;
+}
+
+/* ----- About ----- */
+#about-me {
+	padding: 2%;
+}
+
+@media only screen and (max-width: 992px) {
+	#about-me > div {
+		padding-bottom: 1em;
+	}
+}
+
+.about-me-panel {
+	background-color: var(--section-background);
+	border-radius: 1em;
+	padding: 1em;
+	height: 100%;
+	/* margin: 1em; */
+}
+
+.panel-title {
+	font-size: 24px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.panel-text {
+	font-size: 18px;
+}

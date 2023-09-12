@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@14islands/r3f-scroll-rig": "^8.11.19",
     "@react-three/drei": "^9.83.6",
     "@react-three/fiber": "^8.14.1",
     "@types/three": "^0.156.0",
