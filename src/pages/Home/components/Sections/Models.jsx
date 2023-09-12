@@ -2,19 +2,37 @@ import { useState, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useLoader } from '@react-three/fiber'
+import * as THREE from 'three'
 
 export function ReverseEngineeringModel(props) {
   const ref = useRef()
   const [hovered, spread] = useHover()
 
+  console.log(useGLTF('/models/re.glb'));
 
-  const { scene } = useGLTF('/models/re.glb');
-  // const resources = new Resources();
+  const model = useGLTF('/models/re.glb');
 
-  // const model = resources.loadAsset('/models/re.glb');
+  // const springs = useSpring({ scale: active ? 1.5 : 1 })
+
+  let mixer
+  if (model.animations.length) {
+    mixer = new THREE.AnimationMixer(model.scene);
+    model.animations.forEach((clip) => {
+      const action = mixer.clipAction(clip);
+      action.play();
+    });
+  }
+
+  useFrame((state, delta) => {
+    mixer?.update(delta);
+    // console.log(delta);
+    // const a = clock.getElapsedTime()
+    // console.log(a);
+  });
 
   return (
-    <primitive object={scene} />
+    <primitive object={model.scene} />
+    
   );
 
   // if (resources.isLoaded()) {

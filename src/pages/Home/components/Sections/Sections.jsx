@@ -103,7 +103,6 @@ const Sections = () => {
           <View track={reverseEngineeringRef}>
             <Common/>
             <ReverseEngineeringModel scale={4} position={[0, 0, 0]} />
-            {/* <OrbitControls makeDefault /> */}
           </View>
           <Preload all />
           </Suspense>
