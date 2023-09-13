@@ -125,7 +125,7 @@ export function ReverseEngineeringModel(props) {
 
 const Common = ({zoom}) => (
 	<>
-		<ambientLight intensity={10} />
+		<ambientLight intensity={3} />
 		<OrthographicCamera
 			makeDefault
 			zoom={zoom}
