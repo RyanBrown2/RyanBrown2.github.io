@@ -1,4 +1,15 @@
+
+.graphic {
+	/* width: 100%; */
+	/* height: 100%; */
+}
+
 /* ----- Sections -----*/
+#reverse-engineering-content {
+	margin: 5em 0;
+}
+
+
 .section {
 	background-color: var(--section-background);
 	padding: var(--section-border-radius);
@@ -13,14 +24,14 @@
 	font-size: 18px;
 }
 
-.left {
+/* Might not be necessary since using bootstrap */
+/* .left {
 	margin-right: auto;
-	margin-top: 30vh;
 }
 
 .right {
 	margin-left: auto;
-}
+} */
 
 @media only screen and (max-width: 992px) {
 	#sections {
