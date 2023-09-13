@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { OrthographicCamera, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -8,7 +8,9 @@ export function ReverseEngineeringModel(props) {
   const ref = useRef()
   const [hovered, spread] = useHover()
 
-  console.log(useGLTF('/models/re.glb'));
+  const [animationProgress, setAnimationProgress] = useState(0);
+
+  // console.log(useGLTF('/models/re.glb'));
 
   const model = useGLTF('/models/re.glb');
 
@@ -24,14 +26,29 @@ export function ReverseEngineeringModel(props) {
   }
 
   useFrame((state, delta) => {
-    mixer?.update(delta);
+    mixer?.setTime(animationProgress);
     // console.log(delta);
     // const a = clock.getElapsedTime()
     // console.log(a);
   });
 
   return (
-    <primitive object={model.scene} />
+
+    <group ref={ref} {...props} {...spread} dispose={null}>
+        
+      <primitive
+        object={model.scene} />
+        <mesh
+          onPointerMove={(e) => {
+            var pos = e.intersections[0].uv;
+            var distanceFromCenter = Math.sqrt((pos.x - 0.5) * (pos.x - 0.5) + (pos.y - 0.5) * (pos.y - 0.5));
+            setAnimationProgress(1 - distanceFromCenter);
+          }}
+        >
+          <planeGeometry args={[6, 6]} />
+          {/* <meshBasicMaterial color="black" opacity={0.5} transparent={true} /> */}
+        </mesh>
+     </group>
     
   );
 

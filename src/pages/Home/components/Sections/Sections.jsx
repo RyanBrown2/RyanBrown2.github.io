@@ -44,11 +44,11 @@ const Sections = () => {
         <ambientLight intensity={10} />
         <OrthographicCamera
           makeDefault
-          zoom={50}
-          top={200}
-          bottom={-200}
-          left={200}
-          right={-200}
+          zoom={25}
+          top={20}
+          bottom={-20}
+          left={20}
+          right={-20}
           near={1}
           far={2000}
           position={[0, 0, 10]} 
@@ -65,7 +65,7 @@ const Sections = () => {
           <div className="section-title">Reverse Engineering</div>
           <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
         </Col>
-        <Col lg={6} ref={reverseEngineeringRef}/>
+        <Col lg={6} ref={reverseEngineeringRef} className="graphic"/>
       </Row>
 
       <Row>
@@ -75,7 +75,7 @@ const Sections = () => {
           <div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
         </Col>
       </Row>
-      
+
       <Row>
         <Col lg={6} className='section left'>
           <div className="section-title">Artificial Intelligence</div>
