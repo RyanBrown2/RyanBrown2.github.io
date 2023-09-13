@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.83.6",
     "@react-three/fiber": "^8.14.1",
     "@types/three": "^0.156.0",
+    "@use-gesture/react": "^10.2.27",
     "bootstrap": "^5.3.1",
     "events": "^3.3.0",
     "react": "^18.2.0",
