@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import HomePage from './pages/Home/Home'
 import Background from './components/Background/Background'
 
-import Sizes from './util/sizes'
+import Sizes from './util/sizes.js'
 
 function App() {
 
