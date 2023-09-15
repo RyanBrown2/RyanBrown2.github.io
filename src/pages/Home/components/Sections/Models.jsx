@@ -1,53 +1,28 @@
 import { useState, useRef } from 'react'
 import { OrthographicCamera, useGLTF } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useLoader } from '@react-three/fiber'
 import { useGesture } from '@use-gesture/react'
 import * as THREE from 'three'
-
-import assets from './assets'
 import { clamp } from 'three/src/math/MathUtils'
 
-const applyMaterial = (scene, materials) => {
-  const props = {}
-  for(let [materialName, value] of Object.entries(materials)) {
-    const recursiveSearch = obj => {
-      for(let childIndex in obj.children) {
-        const child = obj.children[childIndex]
-
-        if(child.children.length) {
-          const searchResult = recursiveSearch(child)
-          if(searchResult) return `children-${childIndex}-${searchResult}`
-          else continue
-        } else {
-          if(child?.material?.name === materialName) {
-            return `children-${childIndex}-material`
-          }
-        }
-      }
-    }
-
-    const template = recursiveSearch(scene)
-    // const properties = flattenObject(value) Breaks if value is used as object
-    for(let [propertyName, propertyValue] of Object.entries(value)){
-      props[`${template}-${propertyName}`] = propertyValue
-    }
-  }
-  return props
-}
-
+import assets from './assets'
+import Sizes from '../../../../util/Sizes'
+import ThreeUtil from '../../../../util/ThreeUtil'
 
 export function ReverseEngineeringModel(props) {
-	const ref = useRef()
-	const [hovered, spread] = useHover()
+	const ref = useRef();
+	const cameraRef = useRef();
+	const [hovered, spread] = useHover();
+
+	const { viewport } = useThree();
 
 	const [animationProgress, setAnimationProgress] = useState(0);
 
+	const sizes = new Sizes();
 	const assetData = assets.reverseEngineering;
 
 	const model = useGLTF(assetData.path);
-
-	// console.log(model);
 
 	let mixer
 	if (model.animations.length) {
@@ -60,48 +35,43 @@ export function ReverseEngineeringModel(props) {
 	useFrame((state, delta) => {
 		mixer?.setTime(animationProgress * assetData.animationScale);
 		// model.materials.MagGlass.opacity = 1 - animationProgress;
-		model.scene.children[2].material.opacity = 1 - animationProgress;
+		// model.scene.children[2].material.opacity = 1 - animationProgress;
 
 
-		// mixer?.update(delta);
-		// console.log(mixer?.time);	
-		
-		// console.log(delta);
-		// const a = clock.getElapsedTime()
-		// console.log(a);
+		const scaleX = viewport.width / 6;
+		const scaleY = viewport.height / 3;
+
+		const scaleFactor = Math.min(scaleX, scaleY);
+
+		ref.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
 	});
 
 	return (
-
+		<>
+		<ambientLight intensity={3} />
+		<OrthographicCamera
+			ref={cameraRef}
+			makeDefault
+			zoom={20}
+			top={200}
+			bottom={-200}
+			left={200}
+			right={-200}
+			near={1}
+			far={2000}
+			position={[0, 0, 10]} 
+			/>
 		<group ref={ref} {...props} {...spread} dispose={null}>
-			<Common zoom={75}/>
-			{/* Top */}
-			{/* <mesh geometry={model.nodes.Top.geometry} /> */}
-			{/* <mesh geometry={model.scene.children[0].geometry} material={model.scene.children[0].material} /> */}
-			{/* Bottom */}
-			{/* <mesh geometry={model.scene.children[1].geometry} material={model.scene.children[1].material} /> */}
-			
-			{/* Magnifying Glass */}
-			{/* <mesh geometry={model.scene.children[2].geometry} material={model.scene.children[2].material} /> */}
-			{/* Top Screen */}
-			{/* <mesh geometry={model.scene.children[3].geometry} material={model.scene.children[3].material} /> */}
-			{/* Bottom Screen */}
-			{/* <mesh geometry={model.scene.children[4].geometry} material={model.scene.children[4].material} /> */}
 			<primitive
 				object={model.scene} />
 			
-			{/* <primitive>
-				{...applyMaterial(model.scene, {
-					'cube': { roughness: 1, 'color-r': cubeColor, 'color-g': cubeColor, 'color-b': cubeColor }
-				})}
-			</primitive> */}
 			<mesh
 				onPointerMove={(e) => {
 					var pos = e.intersections[0].uv;
 					var distanceFromCenter = Math.sqrt((pos.x - 0.5) * (pos.x - 0.5) + (pos.y - 0.5) * (pos.y - 0.5));
 					var progress = 1 - clamp(distanceFromCenter * 2, 0, 1);
 					setAnimationProgress(progress);
-					// console.log(pos, progress);
 				}}
 				onPointerLeave={(e) => {
 					setAnimationProgress(0);
@@ -112,7 +82,7 @@ export function ReverseEngineeringModel(props) {
 					<meshBasicMaterial color="white" opacity={0} transparent={true} />
 				</mesh>
 		 </group>
-		
+		</>
 	);
 
 	// if (resources.isLoaded()) {

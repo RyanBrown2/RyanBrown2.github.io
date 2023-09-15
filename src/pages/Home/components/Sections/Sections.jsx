@@ -1,5 +1,6 @@
 import React, { Component, Suspense, useRef } from "react";
 import { Canvas, useThree } from '@react-three/fiber'
+import { Col, Row } from "react-bootstrap";
 
 import {
 	View,
@@ -14,13 +15,14 @@ import {
 	OrthographicCamera
 } from '@react-three/drei'
 
-
 import "./style.css";
 
 import { ReverseEngineeringModel } from "./Models";
-import { Col, Row } from "react-bootstrap";
+import ThreeUtil from "../../../../util/ThreeUtil";
+
 
 const Sections = () => {
+	
 	// constructor(props) {
 	//   super(props);
 	//   this.ref = React.createRef();
@@ -48,7 +50,7 @@ const Sections = () => {
 					<div className="section-title">Reverse Engineering</div>
 					<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
 				</Col>
-				<Col lg={6} ref={reverseEngineeringRef} className="graphic"/>
+				<Col lg={6} ref={reverseEngineeringRef} id="reverse-engineering-graphic" className="graphic"/>
 			</Row>
 
 			<Row>

@@ -4,6 +4,10 @@
 	/* height: 100%; */
 }
 
+#reverse-engineering-graphic {
+	aspect-ratio: 1 / 1;
+}
+
 /* ----- Sections -----*/
 #reverse-engineering-content {
 	margin: 5em 0;

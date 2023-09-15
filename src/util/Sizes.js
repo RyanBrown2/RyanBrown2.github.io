@@ -1,22 +1,25 @@
+import EventEmitter from "events";
 
-export default class Sizes {
+export default class Sizes extends EventEmitter {
   static instance;
   
   constructor() {
     if (Sizes.instance) {
       return Sizes.instance;
     }
+    super();
     Sizes.instance = this;
 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
+    this.aspectRatio = this.width / this.height;
 
-    window.addEventListener('resize', this.resize.bind(this));
-  }
-
-  resize() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.aspectRatio = this.width / this.height;
+      this.emit('resize');
+    });
   }
 
   /**
