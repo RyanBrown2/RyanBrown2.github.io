@@ -46,11 +46,15 @@ const Sections = () => {
 
 			
 			<Row id="reverse-engineering-section">
-				<Col lg={6} id="reverse-engineering-content" className='section left'>
-					<div className="section-title">Reverse Engineering</div>
-					<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+				{/* <Col lg={6} id="reverse-engineering-content" className='section left'> */}
+				<Col lg={6} id="reverse-engineering-content" className="align-middle">
+					{/* <div id="reverse-engineering-content" className="section left"> */}
+					<div className="section left align-middle">
+						<div className="section-title">Reverse Engineering</div>
+						<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+					</div>
 				</Col>
-				<Col lg={6} ref={reverseEngineeringRef} id="reverse-engineering-graphic" className="graphic"/>
+				<Col lg={6} ref={reverseEngineeringRef} id="reverse-engineering-graphic" className="graphic d-none d-lg-block"/>
 			</Row>
 
 			<Row>
