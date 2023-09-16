@@ -46,38 +46,49 @@ const Sections = () => {
 
 			
 			<Row id="reverse-engineering-section">
-				{/* <Col lg={6} id="reverse-engineering-content" className='section left'> */}
-				<Col lg={6} id="reverse-engineering-content" className="align-middle">
-					{/* <div id="reverse-engineering-content" className="section left"> */}
-					<div className="section left align-middle">
+				<Col lg={6} className="g-0 align-self-center">
+					<div className="section left">
 						<div className="section-title">Reverse Engineering</div>
 						<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
 					</div>
 				</Col>
-				<Col lg={6} ref={reverseEngineeringRef} id="reverse-engineering-graphic" className="graphic d-none d-lg-block"/>
+				<Col lg={6} className="graphic d-none d-lg-block">
+					<div ref={reverseEngineeringRef} style={{
+						// position: "absolute",
+						width: "100%",
+						height: "150%",
+					}} />
+				</Col>
+				{/* <Col lg={6} ref={reverseEngineeringRef} className="graphic d-none d-lg-block"/> */}
 			</Row>
 
 			<Row>
-				<Col lg={6} ref={webDevRef} />
-				<Col lg={6} className='section right'>
-					<div className="section-title">Web Development</div>
-					<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+				<Col lg={6} ref={webDevRef} className="graphic d-none d-lg-block"/>
+				<Col lg={6} className="g-0 align-self-center">
+					<div className='section right'>
+						<div className="section-title">Web Development</div>
+						<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+					</div>
 				</Col>
 			</Row>
 
 			<Row>
-				<Col lg={6} className='section left'>
-					<div className="section-title">Artificial Intelligence</div>
-					<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+				<Col lg={6} className="g-0 align-self-center">
+					<div className='section left'>
+						<div className="section-title">Artificial Intelligence</div>
+						<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+					</div>
 				</Col>
-				<Col lg={6} ref={aiRef} />
+				<Col lg={6} ref={aiRef} className="graphic d-none d-lg-block"/>
 			</Row>
 
 			<Row>
-				<Col lg={6} ref={roboticsRef} />
-				<Col lg={6} className='section right'>
-					<div className="section-title">Robotics</div>
-					<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+				<Col lg={6} ref={roboticsRef} className="graphic d-none d-lg-block"/>
+				<Col lg={6} className="g-0 align-self-center">
+					<div className='section right'>
+						<div className="section-title">Robotics</div>
+						<div className="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quisquam? Ullam nam natus, soluta sed optio dolorem veritatis possimus numquam, suscipit nihil modi cupiditate! Voluptatum sint quis in perferendis necessitatibus.</div>
+					</div>
 				</Col>
 			</Row>
 
