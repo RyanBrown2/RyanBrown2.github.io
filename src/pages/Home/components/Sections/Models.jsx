@@ -23,6 +23,8 @@ export function ReverseEngineeringModel(props) {
 	const assetData = assets.reverseEngineering;
 
 	const model = useGLTF(assetData.path);
+	const minSize = assetData.minSize;
+	const maxSize = assetData.maxSize;
 
 	let mixer
 	if (model.animations.length) {
@@ -38,10 +40,10 @@ export function ReverseEngineeringModel(props) {
 		// model.scene.children[2].material.opacity = 1 - animationProgress;
 
 
-		const scaleX = viewport.width / 6;
-		const scaleY = viewport.height / 3;
+		const scaleX = viewport.width / maxSize.x;
+		const scaleY = viewport.height / maxSize.z;
 
-		const scaleFactor = Math.min(scaleX, scaleY);
+		const scaleFactor = Math.min(scaleX, scaleY) * assetData.scale;
 
 		ref.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
 

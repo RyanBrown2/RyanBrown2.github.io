@@ -5,6 +5,8 @@ export default {
       type: "glbmodel",
       path: "/models/re.glb",
       animationScale: 80 / 24,
-      size: [3.5636, 0.288222, 2.25905],
+      scale: 1,
+      minSize: {x: 3.5636, y: 0.288222, z: 2.25905},
+      maxSize: {x: 3.5636, y: 0.288222, z: 4.25687},
     },
 }
