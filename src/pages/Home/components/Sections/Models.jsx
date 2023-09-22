@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { OrthographicCamera, useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useLoader } from '@react-three/fiber'
@@ -14,6 +14,8 @@ export function ReverseEngineeringModel(props) {
 	const ref = useRef();
 	const cameraRef = useRef();
 	const [hovered, spread] = useHover();
+
+	const [mouseCoordinates, setMouseCoordinates] = useState({x:0, y:0});
 
 	const { viewport } = useThree();
 
@@ -34,11 +36,31 @@ export function ReverseEngineeringModel(props) {
 			action.play();
 		});
 	}
+
+	const mouseMoveHandler = (event) => {
+		setMouseCoordinates({x: event.clientX, y: event.clientY});
+		// console.log(mouseCoordinates);
+	}
+
+
+	useEffect(() => {
+		window.addEventListener('mousemove', mouseMoveHandler);
+		return (() => {
+			window.removeEventListener('mousemove', mouseMoveHandler);
+		})
+	});
+
 	useFrame((state, delta) => {
 		mixer?.setTime(animationProgress * assetData.animationScale);
-		// model.materials.MagGlass.opacity = 1 - animationProgress;
-		// model.scene.children[2].material.opacity = 1 - animationProgress;
 
+		const rotationRange = Math.PI / 6;
+		const mouseClampedX = Math.min(Math.max(mouseCoordinates.x, sizes.width / 2), sizes.width) - sizes.width / 2; // non destructive clamp
+		const mouseRotation = ((mouseClampedX / (sizes.width / 2)) * rotationRange) - rotationRange / 2;
+
+		const targertQuaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, mouseRotation, 0, 'XYZ'));
+		// model.scene.rotation.y = mouseRotation;
+		model.scene.quaternion.slerp(targertQuaternion, 0.1)
+		
 
 		const scaleX = viewport.width / maxSize.x;
 		const scaleY = viewport.height / maxSize.z;
@@ -62,7 +84,8 @@ export function ReverseEngineeringModel(props) {
 			right={-200}
 			near={1}
 			far={2000}
-			position={[0, 0, 10]} 
+			position={[0, 0, 10]}
+			// rotation={[-Math.PI/4, 0, 0]} 
 			/>
 		<group ref={ref} {...props} {...spread} dispose={null}>
 			<primitive
