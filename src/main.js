@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import './style.scss'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const canvas = document.querySelector('#experience-canvas')
 
@@ -11,18 +11,98 @@ const sizes = {
   height: window.innerHeight
 }
 
+const scene = new THREE.Scene();
+
 // Loaders
 const dracoLoader = new DRACOLoader();
-dracoLoader.setPath('/draco/');
+dracoLoader.setDecoderPath('/draco/');
 
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-// TODO textures
-// const textureMap =
+loader.load("/models/room2.glb", (glb) => {
+  glb.scene.traverse((child) => {
+    if (child.isMesh) {
+      // child.castShadow = true;
+      // child.receiveShadow = true;
+    }
+  });;
 
+  scene.add(glb.scene);
 
-const scene = new THREE.Scene();
+});
+
+// ---------- SETUP LIGHTING ----------
+// For now using lighting from https://threejs.org/examples/#webgl_animation_skinning_ik
+scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
+scene.fog = new THREE.Fog( scene.background, 1, 5000 );
+
+const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 2 );
+hemiLight.color.setHSL( 0.6, 1, 0.6 );
+hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+hemiLight.position.set( 0, 50, 0 );
+scene.add( hemiLight );
+
+const dirLight = new THREE.DirectionalLight( 0xffffff, 3 );
+dirLight.color.setHSL( 0.1, 1, 0.95 );
+dirLight.position.set( - 1, 1.75, 1 );
+dirLight.position.multiplyScalar( 30 );
+scene.add( dirLight );
+
+dirLight.castShadow = true;
+
+dirLight.shadow.mapSize.width = 2048;
+dirLight.shadow.mapSize.height = 2048;
+
+const d = 50;
+
+dirLight.shadow.camera.left = - d;
+dirLight.shadow.camera.right = d;
+dirLight.shadow.camera.top = d;
+dirLight.shadow.camera.bottom = - d;
+
+dirLight.shadow.camera.far = 3500;
+dirLight.shadow.bias = - 0.0001;
+
+// GROUND
+
+const groundGeo = new THREE.PlaneGeometry( 10000, 10000 );
+const groundMat = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+groundMat.color.setHSL( 0.095, 1, 0.75 );
+
+const ground = new THREE.Mesh( groundGeo, groundMat );
+ground.position.y = - 33;
+ground.rotation.x = - Math.PI / 2;
+ground.receiveShadow = true;
+scene.add( ground );
+
+// SKYDOME
+
+const vertexShader = document.getElementById( 'vertexShader' ).textContent;
+const fragmentShader = document.getElementById( 'fragmentShader' ).textContent;
+const uniforms = {
+  'topColor': { value: new THREE.Color( 0x0077ff ) },
+  'bottomColor': { value: new THREE.Color( 0xffffff ) },
+  'offset': { value: 33 },
+  'exponent': { value: 0.6 }
+};
+uniforms[ 'topColor' ].value.copy( hemiLight.color );
+
+scene.fog.color.copy( uniforms[ 'bottomColor' ].value );
+
+const skyGeo = new THREE.SphereGeometry( 1000, 32, 15 );
+const skyMat = new THREE.ShaderMaterial( {
+  uniforms: uniforms,
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader,
+  side: THREE.BackSide
+} );
+
+const sky = new THREE.Mesh( skyGeo, skyMat );
+scene.add( sky );
+
+// ---------- END SETUP LIGHTING ----------
+
 const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height , 0.1, 1000 );
 camera.position.z = 5;
 camera.position.set(0, 0, 5);
@@ -30,13 +110,9 @@ camera.position.set(0, 0, 5);
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
 
 document.body.appendChild( renderer.domElement );
-
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -57,14 +133,10 @@ window.addEventListener('resize', () => {
 
 const render = () => {
   controls.update();
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
 
 	renderer.render( scene, camera );
 
   window.requestAnimationFrame(render);
-
-
 }
 
 render();
