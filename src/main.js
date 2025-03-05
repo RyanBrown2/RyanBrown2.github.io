@@ -3,6 +3,7 @@ import './style.scss'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { createLimitPan } from './util/OrbitControlsUtil';
 
 const canvas = document.querySelector('#experience-canvas')
 
@@ -33,7 +34,7 @@ loader.load("/models/room2.glb", (glb) => {
 });
 
 // ---------- SETUP LIGHTING ----------
-// For now using lighting from https://threejs.org/examples/#webgl_animation_skinning_ik
+// For now using lighting from https://threejs.org/examples/#webgl_lights_hemisphere
 scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
 scene.fog = new THREE.Fog( scene.background, 1, 5000 );
 
@@ -104,8 +105,6 @@ scene.add( sky );
 // ---------- END SETUP LIGHTING ----------
 
 const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height , 0.1, 1000 );
-camera.position.z = 5;
-camera.position.set(0, 0, 5);
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
@@ -116,7 +115,41 @@ document.body.appendChild( renderer.domElement );
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.dampingFactor = 0.25;
+controls.dampingFactor = 0.15;
+
+// Set starting positions based on screen size
+if (window.innerWidth < 768) {
+  camera.position.set(5.011558695227119, 2.990081239112556, 4.80380085188688);
+  controls.target.set(-0.13228971485785346, 0.4686035244663677, -0.11783050532381764);
+} else {
+  camera.position.set(3.3734282795950787, 1.7620280304294986, 3.2200717379937034);
+  controls.target.set(-0.13228971485785346, 0.4686035244663677, -0.11783050532381764);
+
+}
+
+// Control ranges
+controls.minDistance = 1;
+controls.maxDistance = 10;
+controls.minPolarAngle = 0;
+controls.maxPolarAngle = Math.PI / 2;
+controls.minAzimuthAngle = 0;
+controls.maxAzimuthAngle = Math.PI / 2;
+
+// Pan limits
+const panRange = 1.5;
+const panLimit = createLimitPan({ camera, controls, THREE });
+controls.addEventListener('change', () => {
+  panLimit({
+    minX: -panRange,
+    maxX: panRange,
+    minY: 0,
+    maxY: 2,
+    minZ: -panRange,
+    maxZ: panRange
+  });
+});
+
+
 controls.update();
 
 // Event listeners
@@ -133,6 +166,9 @@ window.addEventListener('resize', () => {
 
 const render = () => {
   controls.update();
+  // console.log('Camera position:', camera.position);
+  // console.log('Orbit controls:', controls.target);
+  // console.log('Orbit controls:', controls.getPolarAngle() * (180 / Math.PI), controls.getAzimuthalAngle() * (180 / Math.PI));
 
 	renderer.render( scene, camera );
 
