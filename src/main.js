@@ -15,17 +15,53 @@ const sizes = {
 const scene = new THREE.Scene();
 
 // Loaders
+
+const textureLoader = new THREE.TextureLoader();
+
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/draco/');
 
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-loader.load("/models/room2.glb", (glb) => {
+const textureMap = {
+  First: {
+    day: "/textures/First.webp",
+    // night: "/textures/"
+  },
+  Second: {
+    day: "/textures/Second.webp",
+    // night: "/textures/"
+  },
+  Third: {
+    day: "/textures/Third.webp",
+    // night: "/textures/"
+  }
+
+}
+
+const loadedTextures = {
+  day: {},
+  night: {}
+}
+
+Object.entries(textureMap).forEach(([key, paths]) => {
+  const dayTexture = textureLoader.load(paths.day);
+  dayTexture.flipY = false;
+  loadedTextures.day[key] = dayTexture;
+});
+
+loader.load("/models/room.glb", (glb) => {
   glb.scene.traverse((child) => {
     if (child.isMesh) {
-      // child.castShadow = true;
-      // child.receiveShadow = true;
+      Object.keys(textureMap).forEach(key => {
+        if (child.name.includes(key)) {
+          const material = new THREE.MeshBasicMaterial({
+            map: loadedTextures.day[key]
+          });
+          child.material = material;
+        }
+      })
     }
   });;
 
